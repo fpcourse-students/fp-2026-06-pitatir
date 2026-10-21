@@ -17,7 +17,12 @@ import Text.Read (readMaybe)
 -- пары, правое поддерево. Первая компонента пары по-прежнему игнорируется.
 -- Выберите минимально необходимый набор методов. Законы Ord — лекция 6.
 
-todoImpl ''Ord ''IntTree
+instance Ord IntTree where
+  compare IntLeaf IntLeaf = EQ
+  compare IntLeaf IntNode {} = LT
+  compare IntNode {} IntLeaf = GT
+  compare (IntNode l1 (_, x) r1) (IntNode l2 (_, y) r2) =
+    compare l1 l2 <> compare x y <> compare r1 r2
 
 
 -- 2.2. Циклический перебор.
